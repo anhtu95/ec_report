@@ -44,7 +44,7 @@
 
 \author[Nguyễn Tuấn Đạt, Phan Anh Tú (SoICT-HUST)]{
 Sinh viên thực hiện\\
-Nguyễn Tuấn Đạt - 
+Nguyễn Tuấn Đạt - 20130856 \\
 Phan Anh Tú - 20134501 \\[0.4cm]
 Giảng viên \\
 PGS.TS Huỳnh Thị Thanh Bình
@@ -61,6 +61,70 @@ PGS.TS Huỳnh Thị Thanh Bình
 \end{frame}
 
 \section{Giới thiệu bài toán}
-\section{Thuật toán}
 
+\section{Thuật toán}
+\begin{frame}{Giới thiệu}
+\begin{itemize}
+\item Giải thuật tiến hóa: là một giải thuật tối ưu hóa metaheuristics ý tưởng dựa trên thuyết tiến hóa của Đác-uyn.
+\pause
+\item Cách thức hoạt động của thuật toán:
+\pause
+\begin{itemize}
+\item Từ một quần thể ban đầu các cá thể được cho đi lai ghép và đột biến để tạo ra các cá thể con.
+\item Quần thể sẽ chọn lọc các cá thể tốt nhất để đi đến thế hệ sau.
+\item Thuật toán sẽ lặp đi lặp lại qua một số lượng thế hệ nhất định để chọn được cá thể tốt nhất.
+\end{itemize}
+\end{itemize}
+\framesubtitle{Giới thiệu chung}
+\end{frame}
+\begin{frame}{Tiến hóa đa nhiệm}
+\framesubtitle{Evolutionary Multitasking}
+\begin{block}{Tiến hóa đa nhiệm}
+Nhiều tiến trình cùng được tối ưu trong một quá trình tiến hóa.
+\end{block}
+\pause
+\begin{block}{Lợi ích}
+\begin{itemize}
+\item Các quá trình tối ưu ứng với các công việc khác nhau trong tiến hóa đa nhiệm vụ có thể phần nào đó bổ xung, hỗ cho nhau.
+\item Giúp tăng gia tốc tốc tối ưu trong các vấn đề phức tạp
+\begin{itemize}
+\item Chuyển dịch hiểu biết
+\item Tăng năng xuất ( nhiều quá trình tối ưu thành 1 quá trình tối ưu )
+\end{itemize}
+\end{itemize}
+\end{block}
+
+\end{frame}
+\begin{frame}{Tiến hóa đa nhiệm}
+\framesubtitle{Evolutionary Multitasking}
+\begin{exampleblock}{Vấn đề }
+\begin{itemize}
+\pause
+\item Cân nhắc vị trí các công việc cần giải quyết như thế nào trong chỉ một quá trình tiến hóa ?
+\pause
+\item Hàm thích nghi phải làm hàm như thế nào? 
+\pause
+\item Làm sao để các công việc đều được tối ưu?
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+\begin{frame}{MFO}
+\framesubtitle{Multifactorial Optimization}
+\begin{block}{MFO}
+\begin{itemize}
+\item Một sơ đồ tiến hóa hỗn hợp (đa nhiệm vụ)khi phát triển quần thể  thực chất ẩn chứa một quá trình song song để tối ưu nhiều các công việc khác nhau trên cùng một quần thể.
+\pause
+\item MFO là một sơ đồ tiến hóa đa nhiệm mà ở đó mỗi công việc tối ưu được nhìn như là một nhân tố ảnh hượng để quá trình tiến hóa.
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}{MFO}
+\framesubtitle{Multifactorial Optimization}
+\begin{itemize}
+\item Xét k công việc cần tối ưu \textit{K- task}
+\item \textit{$i^{th}$ task} ta có hàm mục tiêu $f_i: X_i \longrightarrow R$
+\item Mục tiêu của \textit{MFO}: 
+$${x_1, x_2, \ldots x_K}= argmin\{f_1(x_1), f_2(x_2), \ldots f_K(x_K)\}$$
+\end{itemize}
+\end{frame}
 \end{document}
