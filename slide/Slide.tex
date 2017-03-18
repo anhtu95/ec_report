@@ -62,7 +62,6 @@ PGS.TS Huỳnh Thị Thanh Bình
 
 \section{Giới thiệu bài toán}
 
-\section{Thuật toán}
 \begin{frame}{Giới thiệu}
 \begin{itemize}
 \item Giải thuật tiến hóa: là một giải thuật tối ưu hóa metaheuristics ý tưởng dựa trên thuyết tiến hóa của Đác-uyn.
@@ -80,7 +79,7 @@ PGS.TS Huỳnh Thị Thanh Bình
 \begin{frame}{Tiến hóa đa nhiệm}
 \framesubtitle{Evolutionary Multitasking}
 \begin{block}{Tiến hóa đa nhiệm}
-Nhiều tiến trình cùng được tối ưu trong một quá trình tiến hóa.
+Nhiều công việc cùng được tối ưu trong một quá trình tiến hóa.
 \end{block}
 \pause
 \begin{block}{Lợi ích}
@@ -127,4 +126,28 @@ Nhiều tiến trình cùng được tối ưu trong một quá trình tiến h�
 $${x_1, x_2, \ldots x_K}= argmin\{f_1(x_1), f_2(x_2), \ldots f_K(x_K)\}$$
 \end{itemize}
 \end{frame}
+
+\section{Thuật toán}
+\begin{frame}{Một vài định nghĩa}
+\begin{block}{Factorial rank}
+Factorial rank $r_{ij}$ là rank của cá thể $p_i$ trên task $T_j$
+\end{block}
+\begin{block}{Scalar fitness} 
+${\varphi}_i$ của cá thể $p_i$ phụ thuộc vào rank tốt nhất của nó trên tất cả các task. (VD: ${\varphi}_i = 1/min\{r_{i1}, r_{i2}, ..., r_{iK}\}$)
+\end{block}
+\begin{block}{Skill factor}
+Skill factor ${\tau}_i$ của cá thể $p_i$ là chỉ số của một task có rank cao nhất trong $K$ task của $p_i$ (${\tau}_i = argmin_j\{r_{ij}\}$)
+\end{block}
+\end{frame} 
+
+\begin{frame}{Biểu một cá thể}
+\begin{itemize}
+\item Một lời giải của task $i^{th}$ biểu diễn bởi vector có chiều $D_i$
+\item Biểu diễn cá thể bằng một vector có số chiều = $max\{D_i\}$ và giá trị nằm trong khoảng $[0,1]$
+\end{itemize}
+\end{frame}
+
+
+\section{Cài đặt}
+
 \end{document}
