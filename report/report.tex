@@ -100,12 +100,40 @@ Các bài toán tối ưu thông thường được phân vào 2 nhóm: tối ư
 
 \chapter{Ứng dung}
 \section{Bài toán ứng dụng}
+\subsection{Bài toán Người Du Lịch(TSP)}
+Đầu vào của bài toán là tập các thành phố và khoảng cách giữa mỗi cặp thành phố, đầu ra của bài toán là một hành trình thỏa mãn đi qua các thành phố đúng một lần và có độ dài của hành trình là nhỏ nhất.\\
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{TSP_example.PNG}
+\caption{Ví dụ TSP}
+\end{figure}
+
+TSP là bài toán NP-hard trong lĩnh vực tối ưu hóa tổ hợp.
+\subsection{Bài toán cái túi}
+Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có hai thông số về khối lượng và giá trị. Đầu ra của bài toán là một tập con đồ vật sao cho tổng trọng lượng của tập nhỏ hơn hoặc bằng một giới hạn cho trước và tổng giá trị của tập đạt giá trị lớn nhất.
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{KP_example.PNG}
+\caption{Ví dụ cái túi}
+\end{figure}
+
 \section{Kết quả thực tế}
+\textbf{Bộ tham số}
+\begin{itemize}
+\item Số lượng cá thể trong quần thể : 50
+\item Mức độ đột biến :0.1
+\item Tốc độ hội tụ :50
+\end{itemize}
+
+\textbf{Kiểu đột biến} : Đột biến một điểm cắt
+
 \subsection{TSP-KP}
 \subsection{TSP-KP Kết hợp tích chập}
 
 
 
 \begin{thebibliography}{9}
+\bibitem{TSP} http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf
 \end{thebibliography}
 \end{document}
