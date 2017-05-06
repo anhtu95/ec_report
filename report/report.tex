@@ -61,7 +61,7 @@ VIỆN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG}\\
 {\fontsize{32}{43}\fontfamily{cmr}\selectfont BÁO CÁO}\\[0.1cm]
 {\fontsize{38}{45}\fontfamily{cmr}\fontseries{b}\selectfont MÔN HỌC}\\[0.2cm]
 {\fontsize{20}{24}\fontfamily{phv}\selectfont Các thuật toán cơ bản trong tính toán tiến hoá}\\[0.3cm]
-{\fontsize{18}{20}\fontfamily{cmr}\selectfont \emph{Đề tài: Tiến hóa đa nhiệm }}\\[3cm]
+{\fontsize{18}{20}\fontfamily{cmr}\selectfont \emph{Đề tài: Tiến hóa đa nhiệm }}\\[2cm]
 \hspace{-5cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Nhóm sinh viên thực hiện:}\\[0.1cm] 
 \begin{longtable}{l c c}
 Nguyễn Tuấn Đạt & 20130856 & CNTT2.02-K58 \\
@@ -76,7 +76,7 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \pdfbookmark{\contentsname}{toc}
 \tableofcontents
 %\listoftables
-%\listoffigures
+\listoffigures
 
 \chapter{Cơ sở lý thuyết}
 
@@ -87,11 +87,51 @@ Giải thuật tiến hóa là thuật toán tối ưu meta-heuristics dựa tr�
 \par Để có thể cài đặt thuật toán ta cần phải mã hóa mỗi cá thể theo một cấu trúc nào đó để máy tính có thể hiểu được, thêm vào đó cần phải định nghĩa các toán tử đột biến và lai ghép để có thể thực thi trên máy. Trong phần tiếp theo chúng em sẽ trình bày một số cách mã hóa và một số toán tử đột biến và lai ghép thông dụng.
 
 \subsection{Một số cách mã hóa}
+\subsubsection{Mã hóa nhị phân}
+Một trong những cách mã hóa đơn giản và được sử dụng rộng rãi là mã hóa nhị phân. Mỗi cá thể sẽ được mã hóa như một chuỗi bit.
+\par Với một số bài toán khi lời giải bao gồm các biến quyết định (có hoặc không), mã hóa nhị phân sẽ rất tốt. Ví dụ: Với bài toán cái túi 0/1 (có hay không): Mỗi cá thể (tương ứng với một lời giải) là một vector x(1$\times$n) (n loại đồ vật) trong đó $x_i=0$ nếu đồ vật i không cho vào túi, $x_i=1$ nếu đồ vật i có cho vào túi
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.6]{binary_representation.PNG}
+\caption{Mã hóa nhị phân}
+\end{figure}  
 
+\subsubsection{Mã hóa số thực}
+Trong một số bài toán chúng ta muốn định nghĩa một cá thể bằng một vector với giá trị là liên tục thay vì các giá trị rời rạc, cách mã hóa số thực sẽ được sử dụng.
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.6]{real_representation.PNG}
+\caption{Mã hóa số thực}
+\end{figure}
 
-\subsection{Một số toán tử đột biến}
+\subsubsection{Mã hóa nguyên}
+Với các bài toán lời giải là các giá trị rời rạc, ví dụ ta muốn mã hóa 4 hướng (Bắc, Nam, Đông, Tây), ta sẽ mã hóa chúng tương ứng với 4 số {1,2,3,4}. Trong trường hợp này, một cá thể sẽ được mã hóa bằng một vector các giá trị nguyên rời rạc (cụ thể là 4 số {1,2,3,4})
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.6]{integer_representation.PNG}
+\caption{Mã hóa nguyên}
+\end{figure}
+
+\subsubsection{Mã hóa hoán vị}
+Trong rất nhiều bài toán, lời giải sẽ được biểu diễn bởi một thứ tự các phần tử. Trong trường hợp đó, mã hóa hoán vị sẽ phù hợp cho mã hóa một cá thể.
+\par Một ví điển hình trong trường hợp này là bài toán TSP (Travelling salesman problem): Một người du lịch xuất phát từ một thành phố và muốn thăm tất cả các thành phố, mỗi thành phố đúng 1 lần; cuối cùng quay lại thành phố xuất phát. Cần tìm một lịch trình sao cho tổng chi phí mà nguời du lịch phải bỏ ra là nhỏ nhất.
+\par Nếu như đánh số các thành phố cần thăm từ 1->n (thành phố xuât phát là thành phố 0) thì lời giải của bài toán TSP là một hoán vị từ 1->n. Như vậy một cá thể sẽ được mã hóa là một vector x trong đó $x[0] = 0$; $x[n+1] = 0$ và $x[i] \in \{1,...,n\}$ 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{permutation_representation.PNG}
+\caption{Mã hóa hoán vị}
+\end{figure}
 
 \subsection{Một số toán tử lai ghép}
+\subsubsection{Lai ghép một điểm cắt}
+Mỗi cá thể trong quần thể có độ dài bằng nhau, ta sẽ chọn ngẫu nhiên một điểm và đổi chỗ phần đuôi của cha mẹ sinh ra 2 con mới. 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{one_point_crossover.png}
+\caption{Lai ghép một điểm cắt}
+\end{figure}
+
+\subsection{Một số toán tử đột biến}
 
  
 \section{Tiến hóa đa nhiệm}
