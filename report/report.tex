@@ -79,12 +79,10 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \listoffigures
 
 \chapter{Cơ sở lý thuyết}
-
-
 \section{Giải thuật tiến hóa}
 Giải thuật tiến hóa là thuật toán tối ưu meta-heuristics dựa trên thuyết tiến hóa (chọn lọc tự nhiên) của Dac-uyn.
 \par Thuật toán bắt đầu với quần thể gồm nhiều cá thể áp dụng các toán tử đột biến trên một vài cá thể và các toán tử lai ghép giữa các cá thể với nhau để tạo ra thế hệ mới với mong muốn thế hệ sau sẽ tốt hơn thế hệ trước. Thuật toán sẽ lặp đi lặp lại quá trình chọn lọc (tạo thế hệ mới) với mong muốn sẽ chọn được một cá thể tốt nhất trong một thế hệ nào đó đồng nghĩa bài toán tối ưu đầu vào sẽ có đạt được giá trị tối ưu.
-\par Để có thể cài đặt thuật toán ta cần phải mã hóa mỗi cá thể theo một cấu trúc nào đó để máy tính có thể hiểu được, thêm vào đó cần phải định nghĩa các toán tử đột biến và lai ghép để có thể thực thi trên máy. Trong phần tiếp theo chúng em sẽ trình bày một số cách mã hóa và một số toán tử đột biến và lai ghép thông dụng.
+\par Để có thể cài đặt thuật toán ta cần phải mã hóa mỗi cá thể theo một cấu trúc nào đó để máy tính có thể hiểu được (thông thường mã hóa mỗi cá thể thành một vector (một nhiễm sắc thể)), thêm vào đó cần phải định nghĩa các toán tử đột biến và lai ghép để có thể thực thi trên máy. Trong phần tiếp theo chúng em sẽ trình bày một số cách mã hóa và một số toán tử đột biến và lai ghép thông dụng.
 
 \subsection{Một số cách mã hóa}
 \subsubsection{Mã hóa nhị phân}
@@ -122,20 +120,83 @@ Trong rất nhiều bài toán, lời giải sẽ được biểu diễn bởi m
 \caption{Mã hóa hoán vị}
 \end{figure}
 
-\subsection{Một số toán tử lai ghép}
-\subsubsection{Lai ghép một điểm cắt}
+\subsection{Một số toán tử lai ghép (Crossover)}
+\subsubsection{One Point Crossover}
 Mỗi cá thể trong quần thể có độ dài bằng nhau, ta sẽ chọn ngẫu nhiên một điểm và đổi chỗ phần đuôi của cha mẹ sinh ra 2 con mới. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{one_point_crossover.png}
-\caption{Lai ghép một điểm cắt}
+\caption{One Point Crossover}
 \end{figure}
 
-\subsection{Một số toán tử đột biến}
+\subsubsection{Multi Point Crossover}
+Lai ghép nhiều điểm cắt là trường hợp tổng quát của lai ghép một điểm cắt, ở đó các thành phần của cha và mẹ được đổi chỗ để tạo ra con mới.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{multi_point_crossover.png}
+\caption{Multi Point Crossover}
+\end{figure}
 
+\subsubsection{Whole Arithmetic Recombination}
+Toán tử này thích hợp với cách mã hóa số thực. Cá thể con sinh ra sẽ được tính theo công thức:
+\begin{itemize}
+\item Child1 = a.parent1 + (1-a).parent2 
+\item Child2 = a.parent2 + (1-a).parent1 
+Trong đó a là một giá trị trong khoảng [0,1]
+\end{itemize}
+Nếu a = 0.5 thì 2 con sinh ra sẽ trùng nhau
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{whole_arithmetic_recombination.png}
+\caption{Whole Arithmetic Recombination}
+\end{figure}
+
+\subsection{Một số toán tử đột biến (Mutation)}
+\subsubsection{Bit Flip Mutation}
+Trong toán tử đột biến đảo bit, ta chọn ngẫu nhiên 1 hay nhiều bit trong mã hóa của cá thể và đảo ngược bit được chọn.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{bit_flip_mutation.png}
+\caption{Bit Flip Mutation}
+\end{figure}
  
+\subsubsection{Random Resetting}
+Lựa chọn ngẫu nhiên một phần tử trong một cá thể và chọn ngẫu nhiên một giá trị để thay thế
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{random_resetting.png}
+\caption{Random Resetting}
+\end{figure}
+
+\subsubsection{Swap Mutation}
+Chọn ngẫu nhiên hai vị trí trong vector mã hóa của cá thể (nhiễm sắc thể) và đổi chỗ 2 vị trí cho nhau sẽ sinh ra con mới từ cá thể ban đầu
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{swap_mutation.png}
+\caption{Swap Mutation}
+\end{figure}
+
+\subsubsection{Scramble Mutation}
+Scramble Mutation là một trong những cách đột biến thường dùng trong cách mã hóa hoán vị: Chọn ngẫu nhiên một tập nhỏ liên tiếp các gen (các phần tử liên tiếp trong một vector) và trộn gen đó với nhau để sinh ra con mới
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{scramble_mutation.png}
+\caption{Scramble Mutation}
+\end{figure}
+
+\subsubsection{Inversion Mutation}
+Chọn ngẫu nhiên một tập nhỏ các gen như trong scramble mutation, nhưng thay vì trộn các gen đó với nhau, ta đảo ngược lại thứ tự các gen đó.
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{inversion_mutation.png}
+\caption{Inversion Mutation}
+\end{figure}
+
 \section{Tiến hóa đa nhiệm}
-Các bài toán tối ưu thông thường được phân vào 2 nhóm: tối ưu hóa một hàm mục tiêu và tối ưu hóa nhiều hàm mục tiêu. 
+Giải thuật tiến hóa đã được áp dụng để giải nhiều bài toán tối ưu trong khoa học, trong kỹ thuật. Các bài tối ưu này thường được phân ra thành 2 nhóm: a) Tối ưu hóa đơn mục tiêu (single-objective optimization (SOO)), ở đó mỗi điểm trong không gian tìm kiếm được ánh xạ tới một giá trị vô hướng; b) Tối ưu hóa đa mục tiêu (multi-objective optimization (MOO)), ở đó mỗi điểm trong không gian tìm kiếm sẽ được ánh xạ tới một vector các hàm tối ưu. 
+\par Trong phần này chúng em sẽ trình bày về một nhóm khác của bài toán tối ưu đó là bài toán tối ưu đa nhiệm, tức tối ưu một bài toán với đầu vào của bài toán là nhiều bài toán tối ưu khác (khác với tối ưu hóa đa mục tiêu là một bài toán với nhiều hàm cần tối ưu).
+
+
 
 
 \chapter{Ứng dung}
@@ -174,6 +235,13 @@ Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có ha
 
 
 \begin{thebibliography}{9}
-\bibitem{TSP} http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf
+\bibitem{TSP} \url{http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf}
+
+\bibitem{GA} Tutorialspoint, \textit{Genetic Algorithms Tutorial}
+
+\bibitem{MFO} Abhishek Gupta, Yew-Soon Ong, and Liang Feng; \textit{Multifactorial Evolution: Towards Evolutionary Multitasking}
+
 \end{thebibliography}
+
+
 \end{document}
