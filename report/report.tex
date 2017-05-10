@@ -43,7 +43,7 @@
  \renewcommand{\bibname}{Tài liệu tham khảo}
 }
 
-%\newtheorem{definition}{Định nghĩa}[chapter]
+\newtheorem{definition}{Định nghĩa}[chapter]
 %\newtheorem{lema}{Bổ đề}[chapter]
 %\newtheorem{theorem}{Định lý}[chapter]
 
@@ -84,7 +84,7 @@ Giải thuật tiến hóa là thuật toán tối ưu meta-heuristics dựa tr�
 \par Thuật toán bắt đầu với quần thể gồm nhiều cá thể áp dụng các toán tử đột biến trên một vài cá thể và các toán tử lai ghép giữa các cá thể với nhau để tạo ra thế hệ mới với mong muốn thế hệ sau sẽ tốt hơn thế hệ trước. Thuật toán sẽ lặp đi lặp lại quá trình chọn lọc (tạo thế hệ mới) với mong muốn sẽ chọn được một cá thể tốt nhất trong một thế hệ nào đó đồng nghĩa bài toán tối ưu đầu vào sẽ có đạt được giá trị tối ưu.
 \par Để có thể cài đặt thuật toán ta cần phải mã hóa mỗi cá thể theo một cấu trúc nào đó để máy tính có thể hiểu được (thông thường mã hóa mỗi cá thể thành một vector (một nhiễm sắc thể)), thêm vào đó cần phải định nghĩa các toán tử đột biến và lai ghép để có thể thực thi trên máy. Trong phần tiếp theo chúng em sẽ trình bày một số cách mã hóa và một số toán tử đột biến và lai ghép thông dụng.
 
-\subsection{Một số cách mã hóa}
+\subsection{Một số cách mã hóa}\label{sub_encode}
 \subsubsection{Mã hóa nhị phân}
 Một trong những cách mã hóa đơn giản và được sử dụng rộng rãi là mã hóa nhị phân. Mỗi cá thể sẽ được mã hóa như một chuỗi bit.
 \par Với một số bài toán khi lời giải bao gồm các biến quyết định (có hoặc không), mã hóa nhị phân sẽ rất tốt. Ví dụ: Với bài toán cái túi 0/1 (có hay không): Mỗi cá thể (tương ứng với một lời giải) là một vector x(1$\times$n) (n loại đồ vật) trong đó $x_i=0$ nếu đồ vật i không cho vào túi, $x_i=1$ nếu đồ vật i có cho vào túi
@@ -194,12 +194,67 @@ Chọn ngẫu nhiên một tập nhỏ các gen như trong scramble mutation, nh
 
 \section{Tiến hóa đa nhiệm}
 Giải thuật tiến hóa đã được áp dụng để giải nhiều bài toán tối ưu trong khoa học, trong kỹ thuật. Các bài tối ưu này thường được phân ra thành 2 nhóm: a) Tối ưu hóa đơn mục tiêu (single-objective optimization (SOO)), ở đó mỗi điểm trong không gian tìm kiếm được ánh xạ tới một giá trị vô hướng; b) Tối ưu hóa đa mục tiêu (multi-objective optimization (MOO)), ở đó mỗi điểm trong không gian tìm kiếm sẽ được ánh xạ tới một vector các hàm tối ưu. 
-\par Trong phần này chúng em sẽ trình bày về một nhóm khác của bài toán tối ưu đó là bài toán tối ưu đa nhiệm, tức tối ưu một bài toán với đầu vào của bài toán là nhiều bài toán tối ưu khác (khác với tối ưu hóa đa mục tiêu là một bài toán với nhiều hàm cần tối ưu).
+\par Trong phần này chúng em sẽ trình bày về một nhóm khác của bài toán tối ưu đó là bài toán tối ưu đa nhiệm (MutiFactorial Optimization (MFO)), tức tối ưu một bài toán với đầu vào của bài toán là nhiều bài toán tối ưu khác (khác với tối ưu hóa đa mục tiêu là một bài toán với nhiều hàm cần tối ưu). Để giải bài toán tối ưu đa nhiệm, trong phần này chúng em sẽ tìm hiểu về tiến hóa đa nhiệm.
+\par Giả sử bài toán tối ưu đưa ra là cần tối ưu K bài toán (K task (giả sử cần tìm cực tiểu của các bài toán)). Task thứ $j^{th}$ ($T_j$) có không gian tìm kiếm lời giải $X_j$ và với hàm mục tiêu $f_j: X_j \rightarrow \mathbb{R}$. Thêm vào đó, lời giải của mỗi task cần thỏa mã một số ràng buộc (nếu có).
+\par Như vậy quá trình tìm kiếm lời giải của bài toán là quá trình tìm kiếm bộ $\{x, x_1, x_2 ,..., x_K\}$ sao cho $\{x_1, x_2, ..., x_K\} = argmin \{f_1(x), f_2(x), ...., f_K(x)\}$ trong đó $x_j$ là một lời giải hợp lệ (thỏa mãn các ràng buộc) trong $X_j$, $x$ là lời giải (cách mã hóa) của bài toán đa nhiệm (cách mã hóa chung cho K bài toán cần tối ưu). Ở đó, mỗi hàm $f_j$ được xem như là một nhân tố ảnh hưởng tới sự tiến triển (cải thiện lời giải) của từng cá thể trong quần thể (nếu ta giải quyết bài toán theo giải thuật di truyền).
+\par Để thiết kế giải thuật tiến hóa để giả bài toán MFO, ta cần định nghĩa hàm để so sánh độ tốt của các cá thể trong môi trường đa nhiệm (nhiều bài toán với mỗi bài toán lại có hàm mục tiêu khác nhau) (nếu như ở bài toán đơn mục tiêu, ta chỉ cần so sánh giá trị của hàm mục tiêu trên từng cá thể). Để định nghĩa được hàm so sánh giữa các cá thể, ta cần định nghĩa một vài thuộc tính của cá thể $p_i$ trong quần thể $P$ (trong đó $i \in \{1, 2, ..., |P|\}$). Chú ý rằng các cá thể sẽ được mã hóa trong một không gian đồng nhất (do cần tối ưu bài toán là hợp của $K$ bài toán con trong đó mỗi bài toán con lại có một không gian biểu diễn khác nhau $(X_1, X_2, ..., X_K$) và phải có cách giải mã một lời giải của bài toán thành lời giải của từng bài toán con (một cá thể $p_i$ thu được cần được giải mã bộ lời giải của $K$ bài toán con $\{{x_1}^i, {x_2}^i, ..., {x_K}^i\}$ trong đó ${x_1}^i \in X_1, {x_2}^i \in X_2, ..., {x_K}^i \in X_K$
+\subsection{Một vài định nghĩa}
+\begin{definition}[Factorial cost]
+Với mỗi task $T_j$, factorial cost $\psi_j^i$ của $p_i$ được tính bởi công thức: $\psi_j^i = \lambda . \delta_j^i + f_j^i$ trong đó $\lambda$ là hằng số phạt, $f_j^i$ là giá trị hàm mục tiêu, $\delta_j^i$ là tổng các vi phạm ràng buộc của $p_i$ trên task $T_j$. Nếu $p_i$ là hợp lệ trên $T_j$ thì $\psi_j^i = f_j^i$
+\end{definition}
+
+\begin{definition}[Factorial rank]
+Factorial rank $r_j^i$ của $p_i$ trên task $T_j$ là chỉ số của $p_i$ trong danh sách các cá thể trong quẩn thể $P$ sau khi được sắp xếp theo chiều tăng dần của 	factorial cost $\psi_j$
+\end{definition}
+
+\begin{definition}[Scalar fitness]
+Danh sách của các factorial ranks $\{r_1^i, r_2^i, ..., r_K^i\}$ của cá thể $p_i$ sẽ được biến đổi thành một giá trị scalar fitness $\varphi_i$ phụ thuộc vào hạng cao nhất của $p_i$ trên $K$ task. $\varphi_i = \displaystyle\min_{j \in \{1,..,K\}} \{r_j^i\}$ 
+\end{definition}
+
+\begin{definition}[Skill factor]
+skill factor $\tau_i$ của $p_i$ là một task trong số các task của bài toán MFO mà ở đó cá thể $p_i$ cho kết qủa tốt hơn cả. $\tau_i = argmin_j\{r_j^i\}$ trong đó $j \in \{1, 2, ..., K\}$
+\end{definition}
+
+\section{Giải thuật tiến hóa đa nhiệm (MFEA)}
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.8]{al1.png}
+\caption{Giả thật MFEA (1)}
+\end{figure} 
+
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.6]{al2.png}
+\caption{Giả thật MFEA (2)}
+\end{figure} 
+
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.7]{al3.png}
+\caption{Giả thật MFEA (3)}
+\end{figure} 
 
 
 
+%Chuyển sang phần ứng dụng 
+\subsection{Cách mã hóa cá thể trong MFO}
+Như đã đề cập ở phần trên, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
+\par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã từ một cá thể ra lời giải của $K$ bài toán con. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
+\subsubsection{Mã hóa}
+Mỗi cá thể sẽ được mã hóa bởi một vector có số chiều $D = max\{D_j\}$ và có giá trị là các số thực trong khoảng $[0,1]$. Ví dụ: mã hóa bài toán gồm 2 task: TSP (6 thành phố) và bài toán cái túi nhị phân (12 đồ vật)
+\begin{itemize}
+\item $D = max\{D_j\} = 12$
+\item Ví dụ một cá thể 
+\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+0.8 & 0.9 & 0.1 & 0.9 & 0.6 & 0.0 & 0.2 & 0.5 & 0.9 & 0.4 & 0.1 & 0.9\\
+\hline
+\end{longtable}\end{itemize}
 
-\chapter{Ứng dung}
+\subsubsection{Giải mã}
+
+
+\chapter{Ứng dụng}
 \section{Bài toán ứng dụng}
 \subsection{Bài toán Người Du Lịch(TSP)}
 Đầu vào của bài toán là tập các thành phố và khoảng cách giữa mỗi cặp thành phố, đầu ra của bài toán là một hành trình thỏa mãn đi qua các thành phố đúng một lần và có độ dài của hành trình là nhỏ nhất.\\
