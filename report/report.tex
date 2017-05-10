@@ -237,21 +237,6 @@ skill factor $\tau_i$ của $p_i$ là một task trong số các task của bài
 
 
 %Chuyển sang phần ứng dụng 
-\subsection{Cách mã hóa cá thể trong MFO}
-Như đã đề cập ở phần trên, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
-\par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã từ một cá thể ra lời giải của $K$ bài toán con. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
-\subsubsection{Mã hóa}
-Mỗi cá thể sẽ được mã hóa bởi một vector có số chiều $D = max\{D_j\}$ và có giá trị là các số thực trong khoảng $[0,1]$. Ví dụ: mã hóa bài toán gồm 2 task: TSP (6 thành phố) và bài toán cái túi nhị phân (12 đồ vật)
-\begin{itemize}
-\item $D = max\{D_j\} = 12$
-\item Ví dụ một cá thể 
-\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-0.8 & 0.9 & 0.1 & 0.9 & 0.6 & 0.0 & 0.2 & 0.5 & 0.9 & 0.4 & 0.1 & 0.9\\
-\hline
-\end{longtable}\end{itemize}
-
-\subsubsection{Giải mã}
 
 
 \chapter{Ứng dụng}
@@ -273,7 +258,35 @@ Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có ha
 \includegraphics[scale=0.5]{KP_example.PNG}
 \caption{Ví dụ cái túi}
 \end{figure}
+\subsection{Cách mã hóa cá thể}
+Như đã đề cập ở phần trên, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
+\par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã từ một cá thể ra lời giải của $K$ bài toán con. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
+\subsubsection{Mã hóa}
+Mỗi cá thể sẽ được mã hóa bởi một vector có số chiều $D = max\{D_j\}$ và có giá trị là các số thực trong khoảng $[0,1]$. Ví dụ: mã hóa bài toán gồm 2 task: TSP (6 thành phố)- mã hóa hoán vị với độ dài Gen là 6 và bài toán cái túi nhị phân (12 đồ vật)- mã hóa nhị phân với độ dài Gen là 12.
+\begin{itemize}
+\item $D = max\{D_j\} = 12$
+\item Ví dụ một cá thể 
+\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+0.8 & 0.9 & 0.1 & 0.9 & 0.6 & 0.0 & 0.2 & 0.5 & 0.9 & 0.4 & 0.1 & 0.9\\
+\hline
+\end{longtable}\end{itemize}
 
+\subsubsection{Giải mã}
+TSP
+\begin{longtable}{|c|c|c|c|c|c|}
+\hline
+6& 3& 5& 1& 2& 4\\
+\hline
+\end{longtable}
+Knapsack
+\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+1& 1& 0& 1& 1& 0&0&1&1&0&0&1\\
+\hline
+\end{longtable}
+\subsection{Cải tiến áp dụng tích chập để lưu giữ đặc trưng}
+Khi giải mã, ta có thể nhận thấy bài toán với mã hõa ngắn hơn sẽ thiệt thòi hơn do chỉ được sử dụng n'/n phần của gen chung (n' là độ dài gen bài toán, n là độ dài gen chung). Vì vậy bọn em đề xuất sử dụng tích chập để có thể trích toàn bộ đặc trưng của gen chung trong quá trình giải mã bài toán với mã hóa ngắn.
 \section{Kết quả thực tế}
 \textbf{Bộ tham số}
 \begin{itemize}
@@ -284,8 +297,6 @@ Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có ha
 
 \textbf{Kiểu đột biến} : Đột biến một điểm cắt
 
-\subsection{TSP-KP}
-\subsection{TSP-KP Kết hợp tích chập}
 
 \begin{longtable}{|l |c |c |c |c|}
 \hline
