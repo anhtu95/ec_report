@@ -9,8 +9,8 @@
 \usepackage{amssymb}
 \usepackage[utf8]{inputenc}
 \usepackage[absolute,overlay]{textpos}
-
 \usepackage{listings}
+
 \lstset{
 	language = Java,
 	frame = single,
@@ -45,18 +45,18 @@
 \author[Nguyễn Tuấn Đạt, Phan Anh Tú (SoICT-HUST)]{
 Sinh viên thực hiện\\
 Nguyễn Tuấn Đạt - 20130856 \\
-Phan Anh Tú - 20134501 \\[0.4cm]
+Phan Anh Tú - 20134501 \\[0.5cm]
 Giảng viên \\
 PGS.TS Huỳnh Thị Thanh Bình
 }
 
 \begin{document}
 
-\begin{frame}
+\begin{frame}[plain]
 \titlepage
 \end{frame}
 
-\begin{frame}{Nội dung trình bày}
+\begin{frame}[plain]{Nội dung trình bày}
 \tableofcontents
 \end{frame}
 
@@ -113,7 +113,7 @@ Nhiều công việc cùng được tối ưu trong một quá trình tiến hó
 \begin{itemize}
 \item Một sơ đồ tiến hóa hỗn hợp (đa nhiệm vụ)khi phát triển quần thể  thực chất ẩn chứa một quá trình song song để tối ưu nhiều các công việc khác nhau trên cùng một quần thể.
 \pause
-\item MFO là một sơ đồ tiến hóa đa nhiệm mà ở đó mỗi công việc tối ưu được nhìn như là một nhân tố ảnh hượng để quá trình tiến hóa.
+\item MFO là một sơ đồ tiến hóa đa nhiệm mà ở đó mỗi công việc tối ưu được nhìn như là một nhân tố ảnh hưởng đến quá trình tiến hóa.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -123,31 +123,106 @@ Nhiều công việc cùng được tối ưu trong một quá trình tiến hó
 \item Xét k công việc cần tối ưu \textit{K- task}
 \item \textit{$i^{th}$ task} ta có hàm mục tiêu $f_i: X_i \longrightarrow R$
 \item Mục tiêu của \textit{MFO}: 
-$${x_1, x_2, \ldots x_K}= argmin\{f_1(x_1), f_2(x_2), \ldots f_K(x_K)\}$$
+$$\{x_1, x_2, \ldots x_K\}= argmin\{f_1(x), f_2(x), \ldots f_K(x)\}$$
 \end{itemize}
 \end{frame}
 
 \section{Thuật toán}
 \begin{frame}{Một vài định nghĩa}
+\onslide<1->{
 \begin{block}{Factorial rank}
 Factorial rank $r_{ij}$ là rank của cá thể $p_i$ trên task $T_j$
-\end{block}
-\begin{block}{Scalar fitness} 
+\end{block}}
+\onslide<2->{\begin{block}{Scalar fitness} 
 ${\varphi}_i$ của cá thể $p_i$ phụ thuộc vào rank tốt nhất của nó trên tất cả các task. (VD: ${\varphi}_i = 1/min\{r_{i1}, r_{i2}, ..., r_{iK}\}$)
-\end{block}
-\begin{block}{Skill factor}
+\end{block}}
+\onslide<3->{\begin{block}{Skill factor}
 Skill factor ${\tau}_i$ của cá thể $p_i$ là chỉ số của một task có rank cao nhất trong $K$ task của $p_i$ (${\tau}_i = argmin_j\{r_{ij}\}$)
-\end{block}
+\end{block}}
 \end{frame} 
 
 \begin{frame}{Biểu một cá thể}
 \begin{itemize}
-\item Một lời giải của task $i^{th}$ biểu diễn bởi vector có chiều $D_i$
-\item Biểu diễn cá thể bằng một vector có số chiều = $max\{D_i\}$ và giá trị nằm trong khoảng $[0,1]$
+\onslide<1->\item Một lời giải của task $i^{th}$ biểu diễn bởi vector có chiều $D_i$
+\onslide<2->\item Biểu diễn cá thể bằng một vector có số chiều = $max\{D_i\}$ và giá trị nằm trong khoảng $[0,1]$
+\onslide<3->\item Biểu diễn 2 task: 
+\begin{itemize}
+\onslide<3->\item 12-D Knapsack 
+\onslide<3->\item 6-D TSP 
+\onslide<4->{\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+0.8 & 0.9 & 0.1 & 0.9 & 0.6 & 0.0 & 0.2 & 0.5 & 0.9 & 0.4 & 0.1 & 0.9\\
+\hline
+\end{longtable}}
+\end{itemize}
+\onslide<5->\item Decode
+\begin{itemize}
+\onslide<6->\item Knapsack
+\onslide<7->{\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+\hline
+\end{longtable}}
+\onslide<6->\item TSP
+\onslide<8->{\begin{longtable}{|c|c|c|c|c|c|}
+\hline
+6 & 3 & 5 & 1 & 2 & 4\\
+\hline
+\end{longtable}}
+\end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Cải tiến Decode}
+\begin{itemize}
+\onslide<1->\item Nhận xét: Decode bài toán có kích thước nhỏ hơn, lấy n phần tử đầu của cá thể -> Không lấy được hết đặc trưng của cá thể
+\onslide<2->\item Cải tiến: Sử dụng window trượt qua các phần tử trong cá thể
+\onslide<3->{\begin{longtable}{|c|c|c|c|c|c|}
+\hline
+$x_1$ & $x_2$ & $x_3$ & ... & $x_4$ & $x_5$ \\
+\hline
+\end{longtable}}
+\onslide<4->{\begin{longtable}{|c|c|c|}
+\hline
+$w_1$ & $w_2$ & $w_3$\\
+\hline
+\end{longtable}}
+\onslide<4->{\begin{longtable}{|c|c|c|}
+\hline
+$x_1*w_1+x_2*w_2+x_3*w_3$ & ... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$\\
+\hline
+\end{longtable}}
 
-\section{Cài đặt}
+\onslide<5->{$$D' = (D-F+P)/S + 1$$}
+\begin{itemize}
+\onslide<6->\item $D'$ : số chiều sau khi decode
+\onslide<7->\item $D$ : số chiều của cá thể, $F$ : độ rộng của window
+\onslide<8->\item $P$ : số lượng số 0 được thêm vào cá thể 
+\onslide<9->\item $S$ : số ô nhảy qua  
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Thuật toán}
+\begin{figure}
+\includegraphics[scale=0.45]{al1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Thuật toán}
+\begin{figure}
+\includegraphics[scale=0.45]{al2.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Thuật toán}
+\begin{figure}
+\includegraphics[scale=0.42]{al3.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}[plain]{Thank you for attention! Any Question?}
+Hope you enjoy!
+\end{frame}
 
 \end{document}
