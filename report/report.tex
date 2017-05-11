@@ -2,7 +2,8 @@
 \usepackage[utf8]{vietnam}
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage{enumitem}
+%\usepackage{enumitem}
+\usepackage{enumerate}
 %\usepackage{amssymb}
 \usepackage{graphicx}
 %\usepackage{cases}
@@ -216,28 +217,59 @@ skill factor $\tau_i$ của $p_i$ là một task trong số các task của bài
 \end{definition}
 
 \section{Giải thuật tiến hóa đa nhiệm (MFEA)}
+\subsection{Sơ đồ chung của thuật toán}
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.8]{al1.png}
-\caption{Giả thật MFEA (1)}
-\end{figure} 
+\caption{Giả thuật MFEA (1)}
+\end{figure}
+\begin{enumerate}
+\item Cũng giống như giải thuật tiến hóa thông thường bước đầu tiên ta cần khởi tạo một quần thể gồm $n$ cá thể (các cá thể trong quần thể sẽ được mã hóa trong một không gian đồng nhất) và lưu trong biến \emph{current-pop (P)}.
+\item Đánh giá từng cá thể trên từng task 
+\item Tính skill factor ($\tau$) của mỗi cá thể
+\item Cải thiện quần thể bằng cách áp dụng các toán tử đột biến, lai ghép để tạo ra cá thể mới, áp dụng các chiến thuật chọn lọc để tạo ra quần thể mới. 
+\begin{enumerate}[i.]
+\item Áp dụng các toán tử đột biến, lai ghép trên quần thể hiện tại  \emph{(current-pop)} để sinh ra các con \emph{(offspring-pop (C))}
+\item Đánh giá từng cá thể trong các cá thể con mới được sinh ra \emph{(offspring-pop(C))} 
+\item Hợp nhất các cá thể con mới sinh ra \emph{(offspring-pop(C))} vào quần thể hiện tại để tạo ra \emph{(intermediate-pop ($P \cup C$))} 
+\item Cập nhật scalar fitness ($\varphi$) và skill factor ($\tau$) của mỗi cá thể trong \emph{(intermediate-pop ($P \cup C$))}
+\item Chọn $n$ cá thể phù hợp nhất từ \emph{intermediate-pop} vào quần thể tiếp theo và gán lại vào biến \emph{current-pop}
+\end{enumerate}
+\end{enumerate} 
 
+\subsection{Lai ghép, đột biến}
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.6]{al2.png}
 \caption{Giả thật MFEA (2)}
-\end{figure} 
+\end{figure}  
+Lựa chọn ngẫu nhiên 2 cá thể cha mẹ $p_a$ và $p_b$ trong quần thể hiện tại (\emph{current-pop})
+\begin{enumerate}
+\item Sinh ngẫu nhiên một số trong khoảng [0,1] 
+\item Nếu skill factor của 2 cá thể cha mẹ bằng nhau hoặc số sinh ngẫu nhiên trong khoảng [0,1] nhỏ hơn ngưỡng định sẵn nào đó thì $p_a$ và $p_b$ sẽ được lai ghép tạo ra 2 con mới $c_a$ và $c_b$
+\item Nếu không 
+\begin{enumerate}[i.]
+\item $p_a$ sẽ được đột biến sinh ra con $c_a$
+\item $p_b$ sẽ được đột biến sinh ra con $c_b$
+\end{enumerate}
+\end{enumerate}
 
+\subsection{Đánh giá cá thể}
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.7]{al3.png}
 \caption{Giả thật MFEA (3)}
 \end{figure} 
-
-
-
-%Chuyển sang phần ứng dụng 
-
+Một con $c$ mới được sinh ra sẽ là con của một cha một mẹ $p_a$ và $p_b$ khi đem lai ghép hoặc là con của hoặc cha hoặc mẹ $p_a$ hoặc $p_b$ khi đem đột biến.
+\begin{enumerate}
+\item Nếu $c$ có một cha một mẹ 
+\begin{enumerate}[i.]
+\item Sinh một số ngẫu nhiên trong khoảng [0,1]
+\item Nếu số sinh ngẫu nhiên nhỏ hơn 0.5 thì $c$ sẽ được đánh giá dựa trên task $\tau_a$ (skill factor của $p_a$)
+\item Nếu không skill factor của $c$ sẽ được đánh giá dựa trên task $\tau_b$ (skill factor của $p_b$)
+\end{enumerate}
+\item Nếu $c$ chỉ có hoặc cha hoặc mẹ thì $c$ sẽ được đánh giá dựa trên task bằng giá trị của skill factor của cha hoặc mẹ sinh ra $c$
+\end{enumerate}
 
 \chapter{Ứng dụng}
 \section{Bài toán ứng dụng}
