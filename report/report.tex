@@ -311,21 +311,88 @@ TSP
 6& 3& 5& 1& 2& 4\\
 \hline
 \end{longtable}
+Với bài toán TSP gen riêng có độ dài 6 ta sẽ decode như sau. Tập 6 số đầu tiên trong gen chung là \{0.8,0.9,0.1,0.9,0.6,0.0\} decode là một xâu vị trí của các phần tử trong dãy không giảm tạo bởi tập 6 số đầu vào. VD: 0.0 là số bé nhất trong tập đầu vào và nó đứng thứ 6 nên phần tử đầu tiên của xâu decode là 6, tương tự 0.1 là số bé tiếp theo và nó đứng thứ 3 nên phần thử thứ 2 của xâu là 3 v.v.
+
 Knapsack
 \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 1& 1& 0& 1& 1& 0&0&1&1&0&0&1\\
 \hline
 \end{longtable}
+Với bài toán cái túi thuật toán decode đơn giản chỉ là làm tròn tập gen chung.
 \subsection{Cải tiến áp dụng tích chập để lưu giữ đặc trưng}
 Khi giải mã, ta có thể nhận thấy bài toán với mã hõa ngắn hơn sẽ thiệt thòi hơn do chỉ được sử dụng n'/n phần của gen chung (n' là độ dài gen bài toán, n là độ dài gen chung). Vì vậy bọn em đề xuất sử dụng tích chập để có thể trích toàn bộ đặc trưng của gen chung trong quá trình giải mã bài toán với mã hóa ngắn.
-\section{Kết quả thực tế}
-\textbf{Bộ tham số}
+
 \begin{itemize}
-\item Số lượng cá thể trong quần thể : 50
-\item Mức độ đột biến :0.1
-\item Tốc độ hội tụ :50
+
+\item Cải tiến: Sử dụng window trượt qua các phần tử trong cá thể
+\begin{longtable}{|c|c|c|c|c|c|}
+\hline
+$x_1$ & $x_2$ & $x_3$ & ... & $x_4$ & $x_5$ \\
+\hline
+\end{longtable}
+\begin{longtable}{|c|c|c|}
+\hline
+$w_1$ & $w_2$ & $w_3$\\
+\hline
+\end{longtable}
+\begin{longtable}{|c|c|c|}
+\hline
+$x_1*w_1+x_2*w_2+x_3*w_3$ & ... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$\\
+\hline
+\end{longtable}
+
+$$D' = (D-F+P)/S + 1$$
+\begin{itemize}
+\item $D'$ : số chiều sau khi decode
+\item $D$ : số chiều của cá thể, $F$ : độ rộng của window
+\item $P$ : số lượng số 0 được thêm vào cá thể 
+\item $S$ : số ô nhảy qua  
 \end{itemize}
+\end{itemize}
+\section{Cài đặt} 
+Với bài toán cái túi trường hợp gen không thỏa mãn ràng buộc về khối lượng với cách làm theo bài báo bọn em cài đặt trên ngôn ngữ lập trình như sau. 
+\begin{lstlisting}
+public void makeIndividualVail(ArrayList<Double> ind){
+	int i=0;
+	int xd=0;	
+	while(true){
+		Task t= tasks.get(i);
+		if(!t.checkIndivialVail(ind)){// kiem tra xem ca the co		
+									  // hop le khong
+			xd=0;
+			t.makeIndivialVail(ind); //lam cho ca the hop le
+		} else {
+			xd++;
+		}
+		if(xd>=tasks.size()){ // lap lai cho den khi tat ca task
+			break;            // deu hop le
+		}
+		i=(i+1)%tasks.size();
+	}
+}
+	
+\end{lstlisting}
+Loại bỏ từ kiểu gen lần lượt các phần tử có tỉ số giữa giá trị trên khối lượng lớn dần đén khi cá thể hợp lệ.
+\begin{lstlisting}
+public ArrayList<Double> makeIndivialVail(ArrayList<Double> x){
+		double wx=getWeight(decode(x));
+		int i=0;
+		Random r= new Random();
+		while(wx>b){
+			if(Math.round( x.get(vtcw[i]))==1){
+				wx=wx-w[vtcw[i]];
+			}
+			x.set(vtcw[i], r.nextDouble()*5/10);
+			i++;
+		}
+		return x;
+}
+\end{lstlisting}
+\begin{itemize}
+\item 
+\end{itemize}
+\section{Kết quả thực tế}
 
 \textbf{Kiểu đột biến} : Đột biến một điểm cắt
 
