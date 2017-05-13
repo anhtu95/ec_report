@@ -394,7 +394,7 @@ public ArrayList<Double> makeIndivialVail(ArrayList<Double> x){
 \end{itemize}
 \section{Kết quả thực tế}
 
-\textbf{Kiểu đột biến} : Đột biến một điểm cắt
+\textbf{Kiểu lai ghép} : Lai ghép một điểm cắt
 
 
 \begin{longtable}{|l |c |c |c |c|}
@@ -404,15 +404,51 @@ public ArrayList<Double> makeIndivialVail(ArrayList<Double> x){
 \cline{2-5}
 &TSP & Knapsack & TSP & KnapSack \\
 \hline
-kp200-tsp20  & 551.9&29541 & & 
+kp200-tsp20  & 551.9&29541 &545 &28081 
 \\ \hline
-kp200-tsp52&22412 &28939&& \\ \hline
-kp1000-tsp20 &560.6&69707&& \\ \hline
-kp1000-tsp52 &22832&70815&& \\ \hline
-kp20000-tsp20 &562&388917&& \\ \hline
-kp20000-tsp52 &21327&390872&& \\ \hline
+kp200-tsp52&22412 &28939&19728 &27909 \\ \hline
+kp1000-tsp20 &560.6&69707&552&68789 \\ \hline
+kp1000-tsp52 &22832&70815&20176&69856 \\ \hline
+kp20000-tsp20 &562&388917&517 &391661 \\ \hline
+kp20000-tsp52 &21327&390872&22234& 388777\\ \hline
 \end{longtable}
 
+\textbf{Kiểu lai ghép} : Lai ghép nhiều điểm cắt
+
+\begin{longtable}{|l |c |c |c |c|}
+\hline
+\multirow{2}{*}{Test} 
+& \multicolumn{2}{c|}{Not Covl} &\multicolumn{2}{|c|}{Covl} \\
+\cline{2-5}
+&TSP & Knapsack & TSP & KnapSack \\
+\hline
+kp200-tsp20  & 584&29041 &537 &27703 
+\\ \hline
+kp200-tsp52&22158 &28939&28660 &28378 \\ \hline
+kp1000-tsp20 &586&70319&516&70563 \\ \hline
+kp1000-tsp52 &23400&69709&19793&69157 \\ \hline
+kp20000-tsp20 &545&387700&545 &386705 \\ \hline
+kp20000-tsp52 &21975&386778&21511& 390374\\ \hline
+\end{longtable}
+\textbf{Kiểu đột biến} : Đổi biến đổi chỗ.
+
+\begin{longtable}{|l |c |c |c |c|}
+\hline
+\multirow{2}{*}{Test} 
+& \multicolumn{2}{c|}{Not Covl} &\multicolumn{2}{|c|}{Covl} \\
+\cline{2-5}
+&TSP & Knapsack & TSP & KnapSack \\
+\hline
+kp200-tsp20  & 561&27588 &533 &28751 
+\\ \hline
+kp200-tsp52&22651 &28411&20805 &29609 \\ \hline
+kp1000-tsp20 &576&69879&516&69170 \\ \hline
+kp1000-tsp52 &22971&69648&20761&70671 \\ \hline
+kp20000-tsp20 &572&385427&527 &386705 \\ \hline
+
+kp20000-tsp52 &22426 & 389005 & 21437 & 386637\\
+\hline
+\end{longtable}
 \begin{thebibliography}{9}
 \bibitem{TSP} \url{http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf}
 
