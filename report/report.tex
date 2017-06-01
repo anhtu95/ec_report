@@ -201,7 +201,7 @@ Chọn ngẫu nhiên một tập nhỏ các gen như trong scramble mutation, nh
 \caption{Inversion Mutation}
 \end{figure}
 
-\section{Tiến hóa đa nhiệm}
+\section{Tiến hóa đa nhiệm}\label{sec_mfo}
 Giải thuật tiến hóa đã được áp dụng để giải nhiều bài toán tối ưu trong khoa học, trong kỹ thuật. Các bài tối ưu này thường được phân ra thành 2 nhóm: a) Tối ưu hóa đơn mục tiêu (single-objective optimization (SOO)), ở đó mỗi điểm trong không gian tìm kiếm được ánh xạ tới một giá trị vô hướng; b) Tối ưu hóa đa mục tiêu (multi-objective optimization (MOO)), ở đó mỗi điểm trong không gian tìm kiếm sẽ được ánh xạ tới một vector các hàm tối ưu. 
 \par Trong phần này chúng em sẽ trình bày về một nhóm khác của bài toán tối ưu đó là bài toán tối ưu đa nhiệm (MutiFactorial Optimization (MFO)), tức tối ưu một bài toán với đầu vào của bài toán là nhiều bài toán tối ưu khác (khác với tối ưu hóa đa mục tiêu là một bài toán với nhiều hàm cần tối ưu). Để giải bài toán tối ưu đa nhiệm, trong phần này chúng em sẽ tìm hiểu về tiến hóa đa nhiệm.
 \par Giả sử bài toán tối ưu đưa ra là cần tối ưu K bài toán (K task (giả sử cần tìm cực tiểu của các bài toán)). Task thứ $j^{th}$ ($T_j$) có không gian tìm kiếm lời giải $X_j$ và với hàm mục tiêu $f_j: X_j \rightarrow \mathbb{R}$. Thêm vào đó, lời giải của mỗi task cần thỏa mã một số ràng buộc (nếu có).
@@ -229,7 +229,7 @@ skill factor $\tau_i$ của $p_i$ là một task trong số các task của bài
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.8]{al1.png}
-\caption{Giả thuật MFEA (1)}
+\caption{Giải thuật MFEA - Sơ đồ chung}
 \end{figure}
 \begin{enumerate}
 \item Cũng giống như giải thuật tiến hóa thông thường bước đầu tiên ta cần khởi tạo một quần thể gồm $n$ cá thể (các cá thể trong quần thể sẽ được mã hóa trong một không gian đồng nhất) và lưu trong biến \emph{current-pop (P)}.
@@ -249,7 +249,7 @@ skill factor $\tau_i$ của $p_i$ là một task trong số các task của bài
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.6]{al2.png}
-\caption{Giả thật MFEA (2)}
+\caption{Giả thật MFEA - Lai ghép, đột biến}
 \end{figure}  
 Lựa chọn ngẫu nhiên 2 cá thể cha mẹ $p_a$ và $p_b$ trong quần thể hiện tại (\emph{current-pop})
 \begin{enumerate}
@@ -266,7 +266,7 @@ Lựa chọn ngẫu nhiên 2 cá thể cha mẹ $p_a$ và $p_b$ trong quần th�
 \begin{figure}[H]
 \centering 
 \includegraphics[scale=0.7]{al3.png}
-\caption{Giả thật MFEA (3)}
+\caption{Giả thật MFEA - Đánh giá cá thể }
 \end{figure} 
 Một con $c$ mới được sinh ra sẽ là con của một cha một mẹ $p_a$ và $p_b$ khi đem lai ghép hoặc là con của hoặc cha hoặc mẹ $p_a$ hoặc $p_b$ khi đem đột biến.
 \begin{enumerate}
@@ -282,90 +282,103 @@ Một con $c$ mới được sinh ra sẽ là con của một cha một mẹ $p_
 \chapter{Ứng dụng}
 \section{Bài toán ứng dụng}
 \subsection{Bài toán Người Du Lịch(TSP)}
-Đầu vào của bài toán là tập các thành phố và khoảng cách giữa mỗi cặp thành phố, đầu ra của bài toán là một hành trình thỏa mãn đi qua các thành phố đúng một lần và có độ dài của hành trình là nhỏ nhất.\\
+Đầu vào của bài toán là tập các thành phố và khoảng cách giữa mỗi cặp thành phố, đầu ra của bài toán là một hành trình thỏa mãn đi qua tất cả các thành phố và mỗi thành phố được thăm đúng một lần và có độ dài của hành trình là nhỏ nhất.\\
 
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.5]{TSP_example.PNG}
-\caption{Ví dụ TSP}
+\caption{Ví dụ bài toán TSP}
 \end{figure}
 
 TSP là bài toán NP-hard trong lĩnh vực tối ưu hóa tổ hợp.
 \subsection{Bài toán cái túi}
-Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có hai thông số về khối lượng và giá trị. Đầu ra của bài toán là một tập con đồ vật sao cho tổng trọng lượng của tập nhỏ hơn hoặc bằng một giới hạn cho trước và tổng giá trị của tập đạt giá trị lớn nhất.
+Bài toán cái túi: Cần chất các đồ vật vào một cái túi có trọng lượng ($b$), mỗi đồ vật có hai thông số về trọng lượng ($b_i$) và giá trị sử dụng ($w_i$). Đầu ra của bài toán là một tập con các đồ vật sao cho tổng trọng lượng của các đồ vật trong tập nhỏ hơn hoặc bằng trọng lượng của túi ($b$) và tổng giá trị của các đồ vật trong tập có giá trị lớn nhất.
 \begin{figure}[H]
 \center
 \includegraphics[scale=0.5]{KP_example.PNG}
-\caption{Ví dụ cái túi}
+\caption{Ví dụ bài toán cái túi}
 \end{figure}
+
 \subsection{Hai hàm số thực} 
 Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo [4]
 Hàm Rosenbrock: 
 $$F(x)=\sum_{i=1}^{D-1}(100(x_i^2-x_{i+1})^2+(x_i-1)^2),x \in [-50,50]^D $$
 Hàm Rastrgin:
 $$F(x)=\sum_{i=1}^D(x_i^2=10cos(2\pi x_i)+10),x \in [-50,50]^D$$
+
 \subsection{Cách mã hóa cá thể}
-Như đã đề cập ở phần trên, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
-\par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã từ một cá thể ra lời giải của $K$ bài toán con. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
+Như đã đề cập ở phần \ref{sec_mfo}, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
+\par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã sao cho từ một cá thể trong không gian đồng nhất với mỗi bài toán con có cách giải mã ra lời giải của từng bài toán đó. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
 \subsubsection{Mã hóa}
-Mỗi cá thể sẽ được mã hóa bởi một vector có số chiều $D = max\{D_j\}$ và có giá trị là các số thực trong khoảng $[0,1]$. Ví dụ: mã hóa bài toán gồm 2 task: TSP (6 thành phố)- mã hóa hoán vị với độ dài Gen là 6 và bài toán cái túi nhị phân (12 đồ vật)- mã hóa nhị phân với độ dài Gen là 12.
-\begin{itemize}
-\item $D = max\{D_j\} = 12$
-\item Ví dụ một cá thể 
+Mỗi cá thể sẽ được mã hóa bởi một vector có số chiều $D = max\{D_j\}$ và có giá trị là các số thực trong khoảng $[0,1]$. Xét ví dụ: mã hóa bài toán gồm 2 task: TSP (6 thành phố) và bài toán cái túi nhị phân (12 đồ vật).
+\par Một cá thể của bài toán TSP (6 thành phố) trong bài toán tối ưu đơn nhiệm sẽ được mã hóa bằng một vector có số chiều bằng 6 và giá trị của vector thông thường sẽ là hoán vị của các số từ 1 đến 6 (tương ứng với thứ tự thăm của các thành phố). Còn một cá thể của bài toán cái túi nhị phân (12 đồ vật) trong bài toán tối ưu đơn nhiệm sẽ được mã hóa bằng một vector $x$ có số chiều bằng 12 và giá trị của vector là các số nhị phân 0 hoặc 1 ($x_i=1$ tức đồ vật $i$ sẽ được xếp vào túi). Như vậy khi một cá thể trong bài toán MFO sẽ được mã hóa bằng một vector có số chiều là $D = max\{D_j\} = 12$ do chúng em chọn cách mã hóa số thực nên giá trị của vector là các số thực trong khoảng [0,1]. Ví dụ một cá thể \cite{MFO-slide}
 \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 0.8 & 0.9 & 0.1 & 0.9 & 0.6 & 0.0 & 0.2 & 0.5 & 0.9 & 0.4 & 0.1 & 0.9\\
 \hline
-\end{longtable}\end{itemize}
+\end{longtable}
 
 \subsubsection{Giải mã}
-TSP
+Từ một cá thể trong không gian đồng nhất với mỗi bài toán con cần chọn cách giải mã ra lời giải của từng bài toán đó bằng cách với mỗi bài toán con có lời giải là vector $k$ chiều thì sẽ lấy k giá trị đầu tiên trong vector biểu diễn cá thể trong bài toán MFO và tìm cách giải mã thành lời giải hợp lệ của bài toán con đó. Với ví dụ trên: 
+\begin{itemize}
+\item Với bài toán TSP cần giải mã ra một vector độ dài 6 gồm các giá trị là một hoán vị của các số từ 1 đến 6. Ta sẽ chọn 6 số đầu tiên trong cá thể của bài toán MFO là \{0.8,0.9,0.1,0.9,0.6,0.0\} (dãy 1) và cần tìm cách giải mã dãy này về một dãy hoán vị của các số từ 1 đến 6 bằng cách: Sắp xếp dãy \{0.8,0.9,0.1,0.9,0.6,0.0\} theo thứ tự tăng dần (\{0.0, 0.1, 0.6, 0.8, 0.9, 0.9\} (dãy 2)) rồi duyệt qua các phần tử của dãy 2. Với mỗi phần tử, vị trí của nó trong dãy 1 sẽ là giá trị của vector lời giải của bài toán TSP. Ví dụ phần tử 0.0 trong dãy 2 đứng thứ 6 trong dãy 1 nên vị trí thứ nhất trong vector lời giải của bài toán TSP là 6; cứ làm nhưu vậy ta sẽ được một vector là lời giải của bài toán TSP sau khi giải mã vector biểu diễn cá thể của bài toán MFO trong ví dụ trên là :
 \begin{longtable}{|c|c|c|c|c|c|}
 \hline
 6& 3& 5& 1& 2& 4\\
 \hline
 \end{longtable}
-Với bài toán TSP gen riêng có độ dài 6 ta sẽ decode như sau. Tập 6 số đầu tiên trong gen chung là \{0.8,0.9,0.1,0.9,0.6,0.0\} decode là một xâu vị trí của các phần tử trong dãy không giảm tạo bởi tập 6 số đầu vào. VD: 0.0 là số bé nhất trong tập đầu vào và nó đứng thứ 6 nên phần tử đầu tiên của xâu decode là 6, tương tự 0.1 là số bé tiếp theo và nó đứng thứ 3 nên phần thử thứ 2 của xâu là 3 v.v.
 
-Knapsack
+\item Với bài toán cái túi cần giải mã ra một vector có độ dài 12 gồm các giá trị là 0 hoặc 1. Vì vậy chỉ cần lấy phần nguyên già của từng phần tử trong vector biểu diễn cá thể của bài toán MFO sẽ được một vector lời giải của bài toán cái túi như sau:
 \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 1& 1& 0& 1& 1& 0&0&1&1&0&0&1\\
 \hline
 \end{longtable}
-Với bài toán cái túi thuật toán decode đơn giản chỉ là làm tròn tập gen chung.
+Tuy nhiên ta cần kiểm tra vector có thỏa mãn điều kiện của bài toán không (tổng trọng lượng của các đồ vật phải nhỏ hơn trọng lượng của cái túi). Nếu vector giải mã không thỏa mãn điều kiện của bài toán cái túi (trọng lượng của các đồ vật lớn hơn trọng lượng của cái túi) ta cần chọn một số đồ vật để bỏ bớt ra khỏi túi (trong cài đặt chúng em chọn các đồ vật có trọng số ($w_i/b_i$ là nhỏ nhất)) bằng cách đặt giá trị tương ứng với chỉ số của đồ vật đó trong vector biểu diễn cá thể của bài toán MFO là một giá trị nhỏ hơn 0.5 (dẫn đến khi giải mã giá trị tại vị trí đó bằng 0 tức là không chất đồ vật đó vào túi).  
+\end{itemize}
+
 \subsection{Cải tiến áp dụng tích chập để lưu giữ đặc trưng}
-Khi giải mã, ta có thể nhận thấy bài toán với mã hõa ngắn hơn sẽ thiệt thòi hơn do chỉ được sử dụng n'/n phần của gen chung (n' là độ dài gen bài toán, n là độ dài gen chung). Vì vậy bọn em đề xuất sử dụng tích chập để có thể trích toàn bộ đặc trưng của gen chung trong quá trình giải mã bài toán với mã hóa ngắn.
-
-\begin{itemize}
-
-\item Cải tiến: Sử dụng window trượt qua các phần tử trong cá thể
+Với cách giải mã ở trên, ta có thể nhận thấy bài toán có lời giải biểu diễn bởi một vector có số chiều ngắn hơn sẽ "thiệt thòi" hơn do chỉ được sử dụng một phần của vector biểu diễn cá thể của bài toán MFO. Vì vậy chúng em đề xuất sử dụng "tích chập" để có thể trích toàn bộ đặc trưng (sử dụng toàn bộ giá trị) của vector biểu diễn cá thể của bài toán MFO. 
+\par Cụ thể thay vì với mỗi bài toán có lời giải biểu diễn bởi một vector $k$ chiều chỉ lấy $k$ giá trị đầu tiên của vector biểu diễn cá thể của bài toán MFO, thì chúng em thêm một vector (gọi là cửa sổ trượt) trượt qua toàn bộ vector biểu diễn cá thể của bài toán MFO để có thể thu được vector lời giải của bài toán con. 
+\par Giả sử vector biểu diễn cá thể của bài toán MFO có dạng:
 \begin{longtable}{|c|c|c|c|c|c|}
 \hline
-$x_1$ & $x_2$ & $x_3$ & ... & $x_4$ & $x_5$ \\
+$x_1$ & $x_2$ & $x_3$ & ... & $x_{n-1}$ & $x_n$ \\
 \hline
 \end{longtable}
+
+\par Vector cửa sổ trượt có dạng 
 \begin{longtable}{|c|c|c|}
 \hline
 $w_1$ & $w_2$ & $w_3$\\
 \hline
 \end{longtable}
-\begin{longtable}{|c|c|c|}
+\par Ta sẽ thu được vector lời giải của bài toán con có dạng (giả sử bước nhảy của cửa sổ là 2)
+\begin{longtable}{|c|c|c|c|c|}
 \hline
-$x_1*w_1+x_2*w_2+x_3*w_3$ & ... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$\\
+$x_1*w_1+x_2*w_2+x_3*w_3$ & $x_3*w_1+x_4*w_2+x_5*w_3$ &... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$ & ...\\
 \hline
 \end{longtable}
 
+\par Có thể nhận thấy có trường hợp khi đến cuối vector biểu diễn cá thể của bài toán MFO, cửa sổ có thể bị chờm ra ngoài, trong trong trường hợp đó, ta sẽ thêm vào vector biểu diễn cá thể của bài toán MFO những số thực ngẫu nhiên trong khoảng [0,1]. Và để đảm bảo vector lời giải của bài toán con có đủ $k$ chiều ta sẽ chọn số lượng số thực được thêm vào cuối vector biểu diễn cá thể của bài toán MFO và bước nhảy của cửa sổ sao cho thỏa mãn công thức:  
 $$D' = (D-F+P)/S + 1$$
 \begin{itemize}
-\item $D'$ : số chiều sau khi decode
-\item $D$ : số chiều của cá thể, $F$ : độ rộng của window
-\item $P$ : số lượng số 0 được thêm vào cá thể 
-\item $S$ : số ô nhảy qua  
+\item $D'$ : số chiều của vector lời giải của bài toán con
+\item $D$ : số chiều của cá thể biểu biễn bài toán MFO 
+\item $F$ : số chiều của vector cửa sổ 
+\item $P$ : số lượng số thực được thêm vào cuối vector biểu diễn cá thể bài toán MFO
+\item $S$ : bước nhảy của cửa sổ   
 \end{itemize}
+\par Ta cần chọn S và P:
+\begin{itemize}
+\item Nếu $(D'-1)$ chia hết cho $(D-F)$ thì $S = \frac{D'-1}{D-F}$ và $P=0$
+\item Nếu $(D'-1)$ không chia hết cho $(D-F)$ thì $S =  \lfloor \frac{D'-1}{D-F} \rfloor$  và $P = (D'-1)*S - D + F$ 
 \end{itemize}
+
 \section{Cài đặt} 
-Với bài toán cái túi trường hợp gen không thỏa mãn ràng buộc về khối lượng với cách làm theo bài báo bọn em cài đặt trên ngôn ngữ lập trình như sau. 
+Trong phần này chúng em sẽ trình bày một số hàm quan trọng trong cài đặt của thuật toán MFEA 
+\subsection{Hàm kiểm tra tính hợp lệ của cá thể}
+Với bài toán cái túi trường hợp sau khi giải mã được một vector không thỏa mãn ràng buộc về khối lượng . 
 \begin{lstlisting}
 public void makeIndividualVail(ArrayList<Double> ind){
 	int i=0;
@@ -479,6 +492,7 @@ Kết quả Rosenbrock :1320  Rastrgin 285
 \bibitem{GA} Tutorialspoint, \textit{Genetic Algorithms Tutorial}
 
 \bibitem{MFO} Abhishek Gupta, Yew-Soon Ong, and Liang Feng; \textit{Multifactorial Evolution: Towards Evolutionary Multitasking}
+
 \bibitem{MFO}Bingshui Da
 , Yew-Soon Ong
 , Liang Feng
@@ -492,6 +506,9 @@ Zexuan Zhu
 Continuous Optimization: Benchmark Problems,
 Performance Metric, and Baseline Results
 }
+
+
+\bibitem{MFO-slide} Yew-Soon Ong, \textit{Multifactorial Optimization: Towards Evolutionary Multitasking (Presentation)} 
 \end{thebibliography}
 
 
