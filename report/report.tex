@@ -78,6 +78,14 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \tableofcontents
 %\listoftables
 \listoffigures
+\chapter*{Chương mở đầu}
+Trong bối cảnh công nghiệp công nghiệp công nghệ thông tin và truyền thông đang phát triển rất mạnh mẽ như hiện nay, đặc biệt đó là xu hướng cách mạng công nghiệp 4.0, đây chính là mảnh đất màu mỡ cho các kĩ sư khoa học máy tính trong tương lai. Đứng trước xu hướng như vậy, chúng em những kĩ sư khoa học máy tính tương lai cần phải trao dồi nhiều hơn nữa các kiến thức hàn lâm khoa học, đặc biệt là các thuật toán trong lĩnh vực trí tuệ nhân tạo. 
+
+Giải thuật tiến hóa là một trong những giải thuật quan trọng trong lý thuyết tối ưu hóa tổ hợp. Trong báo cáo này, chúng em đã tìm hiểu, cài đặt và thử nghiệm thuật toán tiến hóa đa nhiệm(MFO), cụ thể các phần báo cáo như sau:
+\begin{itemize}
+\item Cơ sở lý thuyết về giải thuật di truyền và tiến hóa đa nhiệm
+\item Cài đặt thử nghiệm và chạy thử nghiệm thuật toán MFO.
+\end{itemize}
 
 \chapter{Cơ sở lý thuyết}
 \section{Giải thuật tiến hóa}
@@ -290,6 +298,12 @@ Bài toán cái túi: cho một tập các đồ vật, mỗi đồ vật có ha
 \includegraphics[scale=0.5]{KP_example.PNG}
 \caption{Ví dụ cái túi}
 \end{figure}
+\subsection{Hai hàm số thực} 
+Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo [4]
+Hàm Rosenbrock: 
+$$F(x)=\sum_{i=1}^{D-1}(100(x_i^2-x_{i+1})^2+(x_i-1)^2),x \in [-50,50]^D $$
+Hàm Rastrgin:
+$$F(x)=\sum_{i=1}^D(x_i^2=10cos(2\pi x_i)+10),x \in [-50,50]^D$$
 \subsection{Cách mã hóa cá thể}
 Như đã đề cập ở phần trên, làm thế nào để mã hóa một cá thể trong một không gian đồng nhất trong khi đầu vào của bài toán là $K$ bài toán con ở đó mỗi bài toán con lại có một không gian biểu diễn lời giải khác nhau.
 \par Giả sử lời giải của task $T_j$ khi biểu diễn trong bài toán tối ưu đơn nhiệm (đơn mục tiêu và đa mục tiêu) được mã hóa bởi một vector có số chiều $D_j$. Ta sẽ mã hóa mỗi cá thể trong bài toán MFO bằng một vector có số chiều bằng $D = max\{D_j\}$. Sau đó ta có thể áp dụng các cách mã hóa đã trình bày ở mục \ref{sub_encode}  để mã hóa và tương ứng với mỗi cách mã hóa ta sẽ phải tìm cách giải mã từ một cá thể ra lời giải của $K$ bài toán con. Trong bài báo cáo này, chúng em lựa chọn cách mã hóa số thực để biểu diễn cá thể
@@ -449,13 +463,35 @@ kp20000-tsp20 &572&385427&527 &386705 \\ \hline
 kp20000-tsp52 &22426 & 389005 & 21437 & 386637\\
 \hline
 \end{longtable}
+
+Thử nghiệm với hàm số thực:
+Tham số:
+
+\begin{itemize}
+\item Số lượng cá thể 100
+\item Mức độ đột biến 0.3
+\end{itemize}
+
+Kết quả Rosenbrock :1320  Rastrgin 285
 \begin{thebibliography}{9}
 \bibitem{TSP} \url{http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf}
 
 \bibitem{GA} Tutorialspoint, \textit{Genetic Algorithms Tutorial}
 
 \bibitem{MFO} Abhishek Gupta, Yew-Soon Ong, and Liang Feng; \textit{Multifactorial Evolution: Towards Evolutionary Multitasking}
-
+\bibitem{MFO}Bingshui Da
+, Yew-Soon Ong
+, Liang Feng
+, A.K. Qin
+, Abhishek Gupta
+,
+Zexuan Zhu
+, Chuan-Kang Ting
+, Ke Tang
+, and Xin Yao \textit{Evolutionary Multitasking for Single-objective
+Continuous Optimization: Benchmark Problems,
+Performance Metric, and Baseline Results
+}
 \end{thebibliography}
 
 
