@@ -300,7 +300,7 @@ Bài toán cái túi: Cần chất các đồ vật vào một cái túi có tr�
 \end{figure}
 
 \subsection{Hai hàm số thực} 
-Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo [4]
+Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo [4]\\
 Hàm Rosenbrock: 
 $$F(x)=\sum_{i=1}^{D-1}(100(x_i^2-x_{i+1})^2+(x_i-1)^2),x \in [-50,50]^D $$
 Hàm Rastrgin:
@@ -420,7 +420,13 @@ public ArrayList<Double> makeIndivialVail(ArrayList<Double> x){
 \item 
 \end{itemize}
 \section{Kết quả thực tế}
+\subsection{TSP-Knapsack}
+Tham số:
 
+\begin{itemize}
+\item Số lượng cá thể 100
+\item Mức độ đột biến 0.1
+\end{itemize}
 \textbf{Kiểu lai ghép} : Lai ghép một điểm cắt
 
 
@@ -476,8 +482,11 @@ kp20000-tsp20 &572&385427&527 &386705 \\ \hline
 kp20000-tsp52 &22426 & 389005 & 21437 & 386637\\
 \hline
 \end{longtable}
+\textbf{Nhận xét:}
+Việc áp dụng MFO cho kết quả chưa thực sự ổn định với bài toán quy hoạch nguyên. \\
 
-Thử nghiệm với hàm số thực:
+Việc kết hợp bằng tích chập khiến hai bài toán  được cân bằng hơn, ít bị ảnh hưởng bới độ dài gen.
+\subsection{Rosenbrock và Rastrgin}
 Tham số:
 
 \begin{itemize}
@@ -485,7 +494,55 @@ Tham số:
 \item Mức độ đột biến 0.3
 \end{itemize}
 
-Kết quả Rosenbrock :1320  Rastrgin 285
+Kết quả Rosenbrock :1320.0  Rastrgin 285.0
+
+Kết quả ứng với hàm Rosenbrock+Rastrgin 2 task   D=50 và D=100
+\begin{longtable}{|c |c |}
+\hline
+50 &100 \\
+\hline
+2036 & 4732\\
+1827 & 4501\\
+1967 & 4684\\
+2110 & 4528\\
+2010 & 4624\\
+\hline
+\hline
+1990 & 4613\\ 
+\hline
+\end{longtable}
+Kết quả ứng với Rosenbrock(50) và Rastrgin(100) \\
+\begin{longtable}{|c |c |}
+\hline
+Rosenbrock(50) &Rastrgin(100) \\
+\hline
+1485 & 730\\
+1388 & 660\\
+1451 & 692\\
+1289 & 681\\
+1237 & 694\\
+\hline
+\hline
+1370 & 691\\ 
+\hline
+\end{longtable}
+Kết quả ứng với Rosenbrock(100) và Rastrgin(50) \\
+\begin{longtable}{|c |c |}
+\hline
+Rosenbrock(100) &Rastrgin(50) \\
+\hline
+3552 & 292\\
+3513 & 261\\
+3520 & 294\\
+3368 & 293\\
+3691 & 287\\
+\hline
+\hline
+3528 & 285\\ 
+\hline
+\end{longtable}
+\textbf{Nhận xét}
+Theo kết quả thu được, chúng em nhận thấy việc tối ưu tổng hai hàm sẽ cho kết quả kém hơn tối ưu các hàm riêng lẻ
 \begin{thebibliography}{9}
 \bibitem{TSP} \url{http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf}
 
