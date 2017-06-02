@@ -2,6 +2,7 @@
 \usepackage[utf8]{vietnam}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{comment}
 %\usepackage{enumitem}
 \usepackage{enumerate}
 %\usepackage{amssymb}
@@ -69,8 +70,8 @@ Nguyễn Tuấn Đạt & 20130856 & CNTT2.02-K58 \\
 Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \end{longtable}
 \vspace{0.5cm}
-\hspace{-6cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giảng viên hướng dẫn:}\\[0.1cm]
-\hspace{-2.7cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont PGS-TS.Huỳnh Thị Thanh Bình \\[3cm]
+\hspace{-8.5cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giảng viên:}\\[0.1cm]
+\hspace{-2.7cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont PGS-TS. Huỳnh Thị Thanh Bình \\[3cm]
 \fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 5--2017
 \end{center}
 \newpage
@@ -78,13 +79,15 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \tableofcontents
 %\listoftables
 \listoffigures
-\chapter*{Chương mở đầu}
+
+\addcontentsline{toc}{chapter}{Mở đầu}
+\chapter*{Mở đầu}
 Trong bối cảnh công nghiệp công nghiệp công nghệ thông tin và truyền thông đang phát triển rất mạnh mẽ như hiện nay, đặc biệt đó là xu hướng cách mạng công nghiệp 4.0, đây chính là mảnh đất màu mỡ cho các kĩ sư khoa học máy tính trong tương lai. Đứng trước xu hướng như vậy, chúng em những kĩ sư khoa học máy tính tương lai cần phải trao dồi nhiều hơn nữa các kiến thức hàn lâm khoa học, đặc biệt là các thuật toán trong lĩnh vực trí tuệ nhân tạo. 
 
-Giải thuật tiến hóa là một trong những giải thuật quan trọng trong lý thuyết tối ưu hóa tổ hợp. Trong báo cáo này, chúng em đã tìm hiểu, cài đặt và thử nghiệm thuật toán tiến hóa đa nhiệm(MFO), cụ thể các phần báo cáo như sau:
+Giải thuật tiến hóa là một trong những giải thuật quan trọng trong lý thuyết tối ưu hóa tổ hợp. Trong báo cáo này, chúng em đã tìm hiểu, cài đặt và thử nghiệm thuật toán tiến hóa đa nhiệm (MFO), cụ thể các phần báo cáo như sau:
 \begin{itemize}
-\item Cơ sở lý thuyết về giải thuật di truyền và tiến hóa đa nhiệm
-\item Cài đặt thử nghiệm và chạy thử nghiệm thuật toán MFO.
+\item \textbf{Phần 1: }Cơ sở lý thuyết về giải thuật di truyền và tiến hóa đa nhiệm
+\item \textbf{Phần 2: }Cài đặt và chạy thử nghiệm thuật toán MFO.
 \end{itemize}
 
 \chapter{Cơ sở lý thuyết}
@@ -281,7 +284,7 @@ Một con $c$ mới được sinh ra sẽ là con của một cha một mẹ $p_
 
 \chapter{Ứng dụng}
 \section{Bài toán ứng dụng}
-\subsection{Bài toán Người Du Lịch(TSP)}
+\subsection{Bài toán Người Du Lịch (TSP)}
 Đầu vào của bài toán là tập các thành phố và khoảng cách giữa mỗi cặp thành phố, đầu ra của bài toán là một hành trình thỏa mãn đi qua tất cả các thành phố và mỗi thành phố được thăm đúng một lần và có độ dài của hành trình là nhỏ nhất.\\
 
 \begin{figure}[H]
@@ -291,7 +294,7 @@ Một con $c$ mới được sinh ra sẽ là con của một cha một mẹ $p_
 \end{figure}
 
 TSP là bài toán NP-hard trong lĩnh vực tối ưu hóa tổ hợp.
-\subsection{Bài toán cái túi}
+\subsection{Bài toán cái túi (Knapsack)}
 Bài toán cái túi: Cần chất các đồ vật vào một cái túi có trọng lượng ($b$), mỗi đồ vật có hai thông số về trọng lượng ($b_i$) và giá trị sử dụng ($w_i$). Đầu ra của bài toán là một tập con các đồ vật sao cho tổng trọng lượng của các đồ vật trong tập nhỏ hơn hoặc bằng trọng lượng của túi ($b$) và tổng giá trị của các đồ vật trong tập có giá trị lớn nhất.
 \begin{figure}[H]
 \center
@@ -300,10 +303,12 @@ Bài toán cái túi: Cần chất các đồ vật vào một cái túi có tr�
 \end{figure}
 
 \subsection{Hai hàm số thực} 
-Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo [4]\\
-Hàm Rosenbrock: 
+
+Chúng em cũng thử nghiệm thuật toán MFO trên 2 hàm số thực được viết trong bài báo \cite{MFO-function}
+\subsubsection{Hàm Rosenbrock} 
+
 $$F(x)=\sum_{i=1}^{D-1}(100(x_i^2-x_{i+1})^2+(x_i-1)^2),x \in [-50,50]^D $$
-Hàm Rastrgin:
+\subsubsection{Hàm Rastrgin}
 $$F(x)=\sum_{i=1}^D(x_i^2=10cos(2\pi x_i)+10),x \in [-50,50]^D$$
 
 \subsection{Cách mã hóa cá thể}
@@ -375,6 +380,7 @@ $$D' = (D-F+P)/S + 1$$
 \item Nếu $(D'-1)$ không chia hết cho $(D-F)$ thì $S =  \lfloor \frac{D'-1}{D-F} \rfloor$  và $P = (D'-1)*S - D + F$ 
 \end{itemize}
 
+\begin{comment}
 \section{Cài đặt} 
 Trong phần này chúng em sẽ trình bày một số hàm quan trọng trong cài đặt của thuật toán MFEA 
 \subsection{Hàm kiểm tra tính hợp lệ của cá thể}
@@ -416,24 +422,30 @@ public ArrayList<Double> makeIndivialVail(ArrayList<Double> x){
 		return x;
 }
 \end{lstlisting}
+
 \begin{itemize}
 \item 
 \end{itemize}
+\end{comment}
 \section{Kết quả thực tế}
-\subsection{TSP-Knapsack}
-Tham số:
+\subsection{MFO với bài toán TSP và Knapsack}
+\subsubsection{Tham số:}
 
 \begin{itemize}
 \item Số lượng cá thể 100
 \item Mức độ đột biến 0.1
 \end{itemize}
+
+
+\subsubsection{Kết quả}
+
 \textbf{Kiểu lai ghép} : Lai ghép một điểm cắt
 
 
 \begin{longtable}{|l |c |c |c |c|}
 \hline
 \multirow{2}{*}{Test} 
-& \multicolumn{2}{c|}{Not Covl} &\multicolumn{2}{|c|}{Covl} \\
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
 \cline{2-5}
 &TSP & Knapsack & TSP & KnapSack \\
 \hline
@@ -451,7 +463,7 @@ kp20000-tsp52 &21327&390872&22234& 388777\\ \hline
 \begin{longtable}{|l |c |c |c |c|}
 \hline
 \multirow{2}{*}{Test} 
-& \multicolumn{2}{c|}{Not Covl} &\multicolumn{2}{|c|}{Covl} \\
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
 \cline{2-5}
 &TSP & Knapsack & TSP & KnapSack \\
 \hline
@@ -468,7 +480,7 @@ kp20000-tsp52 &21975&386778&21511& 390374\\ \hline
 \begin{longtable}{|l |c |c |c |c|}
 \hline
 \multirow{2}{*}{Test} 
-& \multicolumn{2}{c|}{Not Covl} &\multicolumn{2}{|c|}{Covl} \\
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
 \cline{2-5}
 &TSP & Knapsack & TSP & KnapSack \\
 \hline
@@ -483,18 +495,22 @@ kp20000-tsp52 &22426 & 389005 & 21437 & 386637\\
 \hline
 \end{longtable}
 \textbf{Nhận xét:}
-Việc áp dụng MFO cho kết quả chưa thực sự ổn định với bài toán quy hoạch nguyên. \\
 
-Việc kết hợp bằng tích chập khiến hai bài toán  được cân bằng hơn, ít bị ảnh hưởng bới độ dài gen.
-\subsection{Rosenbrock và Rastrgin}
-Tham số:
+Việc kết hợp bằng tích chập khiến hai bài toán  được cân bằng hơn, giảm ảnh hưởng bới chênh lệch độ dài gen.
 
+
+
+\subsection{MFO với 2 hàm số thực Rosenbrock và Rastrgin}
+\subsubsection{Tham số}
 \begin{itemize}
-\item Số lượng cá thể 100
-\item Mức độ đột biến 0.3
+\item Số lượng cá thể: 100
+\item Mức độ đột biến: 0.3
 \end{itemize}
-
-Kết quả Rosenbrock :1320.0  Rastrgin 285.0
+\subsubsection{Kết quả} 
+\begin{itemize}
+\item Rosenbrock: 1320  
+\item Rastrgin: 285
+\end{itemize}
 
 Kết quả ứng với hàm Rosenbrock+Rastrgin 2 task   D=50 và D=100
 \begin{longtable}{|c |c |}
@@ -543,29 +559,20 @@ Rosenbrock(100) &Rastrgin(50) \\
 \end{longtable}
 \textbf{Nhận xét}
 Theo kết quả thu được, chúng em nhận thấy việc tối ưu tổng hai hàm sẽ cho kết quả kém hơn tối ưu các hàm riêng lẻ
+
+
+
 \begin{thebibliography}{9}
 \bibitem{TSP} \url{http://ccf.ee.ntu.edu.tw/~cchen/course/simulation/CAD/unit1A.pdf}
 
-\bibitem{GA} Tutorialspoint, \textit{Genetic Algorithms Tutorial}
+\bibitem{GA} Tutorialspoint. \textit{Genetic Algorithms Tutorial}
 
-\bibitem{MFO} Abhishek Gupta, Yew-Soon Ong, and Liang Feng; \textit{Multifactorial Evolution: Towards Evolutionary Multitasking}
+\bibitem{MFO} Abhishek Gupta, Yew-Soon Ong, and Liang Feng. \textit{Multifactorial Evolution: Towards Evolutionary Multitasking}
 
-\bibitem{MFO}Bingshui Da
-, Yew-Soon Ong
-, Liang Feng
-, A.K. Qin
-, Abhishek Gupta
-,
-Zexuan Zhu
-, Chuan-Kang Ting
-, Ke Tang
-, and Xin Yao \textit{Evolutionary Multitasking for Single-objective
-Continuous Optimization: Benchmark Problems,
-Performance Metric, and Baseline Results
-}
+\bibitem{MFO-slide} Yew-Soon Ong. \textit{Multifactorial Optimization: Towards Evolutionary Multitasking (Presentation)} 
 
+\bibitem{MFO-function} Bingshui Da, Yew-Soon Ong, Liang Feng, A.K. Qin, Abhishek Gupta, Zexuan Zhu, Chuan-Kang Ting, Ke Tang, and Xin Yao. \textit{Evolutionary Multitasking for Single-objective Continuous Optimization: Benchmark Problems,Performance Metric, and Baseline Results}
 
-\bibitem{MFO-slide} Yew-Soon Ong, \textit{Multifactorial Optimization: Towards Evolutionary Multitasking (Presentation)} 
 \end{thebibliography}
 
 
