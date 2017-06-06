@@ -10,7 +10,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[absolute,overlay]{textpos}
 \usepackage{listings}
-
+\usepackage{multirow}
 \lstset{
 	language = Java,
 	frame = single,
@@ -202,7 +202,13 @@ $x_1*w_1+x_2*w_2+x_3*w_3$ & ... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$\\
 \end{itemize}
 \end{itemize}
 \end{frame}
+\begin{frame}{Hai hàm số thực Rosenbrock và Rastrgin}
+\textbf{Hàm Rosenbrock} 
 
+$$F(x)=\sum_{i=1}^{D-1}(100(x_i^2-x_{i+1})^2+(x_i-1)^2),x \in [-50,50]^D $$
+\textbf{Hàm Rastrgin}
+$$F(x)=\sum_{i=1}^D(x_i^2=10cos(2\pi x_i)+10),x \in [-50,50]^D$$
+\end{frame}
 \begin{frame}{Thuật toán}
 \begin{figure}
 \includegraphics[scale=0.45]{al1.png}
@@ -220,7 +226,150 @@ $x_1*w_1+x_2*w_2+x_3*w_3$ & ... & $x_i*w_1+x_{i+1}*w_2+x_{i+2}*w_3$\\
 \includegraphics[scale=0.42]{al3.png}
 \end{figure}
 \end{frame}
+\begin{frame}{Bộ tham số ứng với TSP và Knapsack}
+\begin{itemize}
+\item Số lượng cá thể: 100
+\item Mức độ đột biến: 0.1
+\end{itemize}
+\end{frame}
+\begin{frame}{Kết quả ứng với lai ghép một điểm cắt}
+\textbf{Kiểu lai ghép} : Lai ghép một điểm cắt
 
+
+\begin{longtable}{|l |c |c |c |c|}
+\hline
+\multirow{2}{*}{Test} 
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
+\cline{2-5}
+&TSP & Knapsack & TSP & KnapSack \\
+\hline
+kp200-tsp20  & 551.9&29541 &545 &28081 
+\\ \hline
+kp200-tsp52&22412 &28939&19728 &27909 \\ \hline
+kp1000-tsp20 &560.6&69707&552&68789 \\ \hline
+kp1000-tsp52 &22832&70815&20176&69856 \\ \hline
+kp20000-tsp20 &562&388917&517 &391661 \\ \hline
+kp20000-tsp52 &21327&390872&22234& 388777\\ \hline
+\end{longtable}
+\end{frame}
+
+\begin{frame}{Kết quả ứng với lai ghép hai điểm cắt}
+
+
+\textbf{Kiểu lai ghép} : Lai ghép hai điểm cắt
+
+\begin{longtable}{|l |c |c |c |c|}
+\hline
+\multirow{2}{*}{Test} 
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
+\cline{2-5}
+&TSP & Knapsack & TSP & KnapSack \\
+\hline
+kp200-tsp20  & 584&29041 &537 &27703 
+\\ \hline
+kp200-tsp52&22158 &28939&28660 &28378 \\ \hline
+kp1000-tsp20 &586&70319&516&70563 \\ \hline
+kp1000-tsp52 &23400&69709&19793&69157 \\ \hline
+kp20000-tsp20 &545&387700&545 &386705 \\ \hline
+kp20000-tsp52 &21975&386778&21511& 390374\\ \hline
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Kết quả ứng với đột biến đổi chỗ}
+\textbf{Kiểu đột biến} : Đổi biến đổi chỗ.
+
+\begin{longtable}{|l |c |c |c |c|}
+\hline
+\multirow{2}{*}{Test} 
+& \multicolumn{2}{c|}{Không sử dụng tích chập} &\multicolumn{2}{|c|}{Sử dụng tích chập} \\
+\cline{2-5}
+&TSP & Knapsack & TSP & KnapSack \\
+\hline
+kp200-tsp20  & 561&27588 &533 &28751 
+\\ \hline
+kp200-tsp52&22651 &28411&20805 &29609 \\ \hline
+kp1000-tsp20 &576&69879&516&69170 \\ \hline
+kp1000-tsp52 &22971&69648&20761&70671 \\ \hline
+kp20000-tsp20 &572&385427&527 &386705 \\ \hline
+
+kp20000-tsp52 &22426 & 389005 & 21437 & 386637\\
+\hline
+\end{longtable}
+
+\end{frame}
+
+
+\subsubsection{Kết quả}
+
+
+\subsubsection{Nhận xét}
+\begin{frame}{Nhận xét}
+Việc kết hợp bằng tích chập khiến hai bài toán  được cân bằng hơn, giảm ảnh hưởng bới chênh lệch độ dài gen.
+\end{frame}
+\begin{frame}{Kết quả ứng với hàm Rosenbrock và Rastrgin }
+\textbf{Tham số}
+\begin{itemize}
+\item Số lượng cá thể: 100
+\item Mức độ đột biến: 0.3
+\end{itemize}
+\textbf{Kết quả} 
+\begin{itemize}
+\item Rosenbrock: 1320  
+\item Rastrgin: 285
+\end{itemize}
+\end{frame}
+\begin{frame}{Kết quả ứng với hàm Rosenbrock+Rastrgin 2 task   D=50 và D=100}
+\begin{longtable}{|c |c |}
+\hline
+50 &100 \\
+\hline
+2036 & 4732\\
+1827 & 4501\\
+1967 & 4684\\
+2110 & 4528\\
+2010 & 4624\\
+\hline
+\hline
+1990 & 4613\\ 
+\hline
+\end{longtable}
+\end{frame}
+\begin{frame}{Kết quả ứng với Rosenbrock(50) và Rastrgin(100)}
+\begin{longtable}{|c |c |}
+\hline
+Rosenbrock(50) &Rastrgin(100) \\
+\hline
+1485 & 730\\
+1388 & 660\\
+1451 & 692\\
+1289 & 681\\
+1237 & 694\\
+\hline
+\hline
+1370 & 691\\ 
+\hline
+\end{longtable}
+\end{frame}
+\begin{frame}{Kết quả ứng với Rosenbrock(100) và Rastrgin(50)}
+\begin{longtable}{|c |c |}
+\hline
+Rosenbrock(100) &Rastrgin(50) \\
+\hline
+3552 & 292\\
+3513 & 261\\
+3520 & 294\\
+3368 & 293\\
+3691 & 287\\
+\hline
+\hline
+3528 & 285\\ 
+\hline
+\end{longtable}
+\end{frame}
+\begin{frame}{Nhận xét}
+Theo kết quả thu được, chúng em nhận thấy việc tối ưu tổng hai hàm sẽ cho kết quả kém hơn tối ưu các hàm riêng lẻ
+\end{frame}
 \begin{frame}[plain]{Thank you for attention! Any Question?}
 Hope you enjoy!
 \end{frame}
